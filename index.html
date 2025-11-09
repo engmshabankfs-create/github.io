@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eng Mohamed Shaban</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#05031a;
+  --card:#0f0726;
+  --accent:#00ffff;
+  --muted:#9aa3b2;
+  --text:#ffffff;
+  --radius:12px;
+}
+[data-theme="light"]{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --accent:#0077ff;
+  --muted:#6b7280;
+  --text:#0b1220;
+}
+
+/* عام */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-x:hidden;font-family:'Cairo',sans-serif;direction:rtl}
+body{
+  background:var(--bg);
+  color:var(--text);
+  transition:background .3s,color .3s;
+  padding:28px 18px;
+}
+
+/* زر الوضع */
+.top-controls{
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:1200;
+}
+.btn-circle{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  border:none;cursor:pointer;
+  background:var(--accent);color:var(--bg);
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  transition:.3s;
+}
+.btn-circle:hover{transform:rotate(20deg) scale(1.05)}
+
+/* الهيدر */
+.header{
+  display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;
+  margin-bottom:26px;
+  opacity:0;animation:headerFade 0.8s ease forwards;animation-delay:0.2s;
+}
+.header .avatar{
+  width:96px;height:96px;border-radius:50%;border:3px solid var(--accent);
+  overflow:hidden;flex-shrink:0;
+}
+.header .avatar img{width:100%;height:100%;object-fit:cover}
+.header .title{display:flex;flex-direction:column;align-items:center}
+.header h1{color:var(--accent);font-size:20px;font-weight:700}
+.header p{color:var(--accent);opacity:.9;font-size:14px;margin-top:4px}
+
+/* الشبكة */
+.container{max-width:1200px;margin:0 auto;}
+.grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+/* البطاقات */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+  overflow:hidden;
+  opacity:0;
+  animation:fadeUp 0.6s ease forwards;
+  transition:transform .3s, box-shadow .3s;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-bottom:14px;
+}
+.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px rgba(0,255,255,0.2)}
+.card .thumb{width:100%;height:160px;border-radius:10px;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card h3{margin:12px 0 6px;color:var(--accent);font-size:18px}
+.meta{font-size:12px;color:var(--muted);margin-bottom:8px;text-align:left}
+.excerpt{font-size:14px;line-height:1.6;max-height:4.8em;overflow:hidden;margin-bottom:8px}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.read-more{
+  position:relative;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--accent);
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+  overflow:hidden;
+  transition:all .3s ease;
+}
+.read-more:hover{
+  background:var(--accent);
+  color:var(--bg);
+  box-shadow:0 0 18px rgba(0,255,255,0.5);
+  transform:translateY(-2px);
+}
+.read-more::before{
+  content:"";
+  position:absolute;
+  top:0;left:-75%;
+  width:50%;height:100%;
+  background:rgba(255,255,255,0.25);
+  transform:skewX(-20deg);
+  transition:.5s;
+}
+.read-more:hover::before{left:130%}
+
+/* الفوتر */
+.footer{text-align:center;color:var(--muted);font-size:13px;margin-top:36px;padding-bottom:40px}
+
+/* اللابتوب */
+@media (min-width:1024px){
+  .grid{gap:32px}
+  .card{padding:22px;border-radius:18px}
+  .card .thumb{height:230px}
+  .card h3{font-size:21px}
+  .excerpt{font-size:15.5px;line-height:1.9}
+  .read-more{padding:10px 18px;font-size:15.5px}
+}
+
+/* ✨ أنيميشنات */
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes headerFade{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ⚡ تأثير تحميل */
+.skeleton {
+  background: linear-gradient(100deg, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.15) 37%, rgba(255,255,255,0.08) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius);
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+.skeleton-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.skeleton-thumb {
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.skeleton-line {
+  height: 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  background: var(--muted);
+  opacity: 0.2;
+}
+</style>
+</head>
+<body>
+<div class="top-controls">
+  <button id="mode-toggle" class="btn-circle"><i id="mode-icon" class="fas fa-moon"></i></button>
+</div>
+
+<div class="container">
+  <header class="header">
+    <div class="avatar"><img src="eng.jpg" alt="قناة محمد شعبان"></div>
+    <div class="title">
+      <h1>Eng Mohamed Shaban</h1>
+      <p>تابع قناتي على يوتيوب</p>
+    </div>
+  </header>
+
+  <main id="posts-area">
+    <div id="posts" class="grid"></div>
+  </main>
+
+  <div class="footer">© 2025 جميع الحقوق محفوظة - محمد شعبان</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyBVgZsBL9fjSVqiZFad6VoRGMydYikDciI",authDomain:"mohamed-shaban-ab814.firebaseapp.com",projectId:"mohamed-shaban-ab814",storageBucket:"mohamed-shaban-ab814.firebasestorage.app",messagingSenderId:"651988656935",appId:"1:651988656935:web:849262e31bf90a72bf3f02"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
+/* الوضع */
+const modeBtn=document.getElementById("mode-toggle");
+const modeIcon=document.getElementById("mode-icon");
+const pref=localStorage.getItem("site-theme");
+function applyTheme(t){if(t==="light"){document.documentElement.setAttribute("data-theme","light");modeIcon.className="fas fa-sun";}else{document.documentElement.removeAttribute("data-theme");modeIcon.className="fas fa-moon";}}
+if(pref){applyTheme(pref);}else{const prefersDark=window.matchMedia("(prefers-color-scheme: dark)").matches;applyTheme(prefersDark?"dark":"light");}
+modeBtn.addEventListener("click",()=>{const isLight=document.documentElement.getAttribute("data-theme")==="light";const next=isLight?"dark":"light";applyTheme(next);localStorage.setItem("site-theme",next);});
+
+/* البطاقات */
+const postsContainer=document.getElementById("posts");
+function escapeHtml(s){return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+function createCard(post,id){
+  const raw=(post.content||"").replace(/\n+/g," ").trim();
+  let excerpt=raw.split(" ").slice(0,45).join(" ");
+  if(raw.length>excerpt.length)excerpt+="...";
+  let thumb="";
+  if(post.videoUrl){const m=post.videoUrl.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);if(m)thumb=`https://img.youtube.com/vi/${m[1]}/hqdefault.jpg`;}
+  if(!thumb&&post.thumbnail)thumb=post.thumbnail;
+  if(!thumb)thumb="https://via.placeholder.com/800x450?text=No+Image";
+  const card=document.createElement("article");
+  card.className="card";
+  card.innerHTML=`
+    <div class="thumb"><img src="${thumb}" alt="${escapeHtml(post.title||'')}" loading="lazy"></div>
+    <h3>${escapeHtml(post.title||'بدون عنوان')}</h3>
+    <div class="meta">${new Date(post.date).toLocaleString()}</div>
+    <div class="excerpt">${escapeHtml(excerpt)}</div>
+    <div class="actions">
+      <a class="read-more" href="post.html?id=${id}">اقرأ المزيد</a>
+    </div>`;
+  return card;
+}
+
+/* عرض تحميل */
+function showSkeletons(){for(let i=0;i<6;i++){const sk=document.createElement("div");sk.className="skeleton-card";sk.innerHTML=`<div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-line" style="width:80%;"></div><div class="skeleton skeleton-line" style="width:60%;"></div><div class="skeleton skeleton-line" style="width:90%;"></div>`;postsContainer.appendChild(sk);}}
+showSkeletons();
+
+/* جلب البيانات */
+db.collection("posts").orderBy("date","desc").get().then(snapshot=>{
+  postsContainer.innerHTML="";
+  if(snapshot.empty){postsContainer.innerHTML=`<div class="empty">لا توجد منشورات حالياً.</div>`;return;}
+  snapshot.forEach(doc=>{const data=doc.data();const card=createCard(data,doc.id);postsContainer.appendChild(card);});
+}).catch(err=>{console.error("Firebase error",err);postsContainer.innerHTML=`<div class="empty">حدث خطأ في جلب المنشورات.</div>`;});
+</script>
+</body>
+</html>

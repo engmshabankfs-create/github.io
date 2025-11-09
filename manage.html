@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>إدارة المنشورات | مدونة محمد شعبان</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', sans-serif; background:#05031a; color:#fff; text-align:center; padding:20px; }
+h1 { color:#00ffff; margin-bottom:20px; }
+table { width:100%; max-width:800px; margin:auto; border-collapse:collapse; }
+th, td { padding:10px; border:1px solid #333; }
+th { background:#0f0726; }
+button { padding:5px 10px; margin:2px; border:none; border-radius:5px; cursor:pointer; }
+.edit { background:#00ffff; color:#000; }
+.delete { background:#ff4d4d; color:#fff; }
+a { color:#00ffff; text-decoration:none; display:inline-block; margin-top:15px; }
+</style>
+</head>
+<body>
+
+<h1>📋 إدارة المنشورات</h1>
+<table>
+  <thead>
+    <tr>
+      <th>العنوان</th>
+      <th>التاريخ</th>
+      <th>الإجراءات</th>
+    </tr>
+  </thead>
+  <tbody id="postsTable">
+    <!-- المنشورات ستظهر هنا -->
+  </tbody>
+</table>
+
+<a href="add.html">✏️ إضافة منشور جديد</a>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script>
+// إعداد Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBVgZsBL9fjSVqiZFad6VoRGMydYikDciI",
+  authDomain: "mohamed-shaban-ab814.firebaseapp.com",
+  projectId: "mohamed-shaban-ab814",
+  storageBucket: "mohamed-shaban-ab814.firebasestorage.app",
+  messagingSenderId: "651988656935",
+  appId: "1:651988656935:web:849262e31bf90a72bf3f02",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// جلب كل المنشورات
+const tableBody = document.getElementById("postsTable");
+db.collection("posts").orderBy("date", "desc").get().then(snapshot => {
+  snapshot.forEach(doc => {
+    const post = doc.data();
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${post.title}</td>
+      <td>${post.date}</td>
+      <td>
+        <button class="edit" onclick="editPost('${doc.id}')">تعديل</button>
+        <button class="delete" onclick="deletePost('${doc.id}')">حذف</button>
+      </td>
+    `;
+    tableBody.appendChild(tr);
+  });
+});
+
+// الانتقال لصفحة add.html مع id للمنشور
+function editPost(id) {
+  window.location.href = `add.html?id=${id}`;
+}
+
+// حذف المنشور
+function deletePost(id) {
+  if(confirm("هل أنت متأكد من حذف هذا المنشور؟")) {
+    db.collection("posts").doc(id).delete()
+      .then(() => {
+        alert("✅ تم حذف المنشور");
+        location.reload();
+      })
+      .catch(err => alert("❌ حدث خطأ: " + err));
+  }
+}
+</script>
+
+</body>
+</html>
