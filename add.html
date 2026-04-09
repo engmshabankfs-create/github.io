@@ -4,8 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>إضافة / تعديل منشور | مدونة محمد شعبان</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
 <style>
 :root {
   --bg: #05031a;
@@ -30,65 +32,143 @@ body {
   transition: background 0.4s, color 0.4s;
 }
 h1 { color: var(--accent); margin-bottom: 20px; }
-input, textarea { width: 90%; max-width: 700px; background: var(--card); color: var(--text); border: 1px solid #333; border-radius: 10px; padding: 10px; margin-bottom: 15px; transition: background 0.4s, color 0.4s; }
+
+input, textarea {
+  width: 90%;
+  max-width: 700px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
 textarea { height: 180px; resize: vertical; }
-button { background: var(--accent); color: #000; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+
+button {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 5px;
+}
+
 button:hover { opacity: 0.85; }
-a { color: var(--accent); display: block; margin-top: 20px; text-decoration: none; }
-#mode-toggle { position: fixed; top: 15px; left: 15px; background: var(--accent); color: var(--bg); border: none; border-radius: 50%; width: 45px; height: 45px; font-size: 18px; cursor: pointer; transition: 0.3s; }
-#mode-toggle:hover { transform: rotate(20deg) scale(1.1); }
-.footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #222; }
+
+a {
+  color: var(--accent);
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+#mode-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid #222;
+}
 body.light .footer { border-top: 1px solid #ccc; }
+
 .footer h3 { color: var(--accent); margin-bottom: 15px; }
-.social-links a { display: inline-block; margin: 0 10px; font-size: 22px; color: var(--accent); transition: 0.3s; }
-.social-links a:hover { color: #fff; transform: scale(1.15); }
-body.light .social-links a:hover { color: #000; }
+
+.social-links a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+.social-links a:hover {
+  color: #fff;
+}
 </style>
 </head>
+
 <body>
 
-<!-- زر الوضع النهاري/الليلي -->
 <button id="mode-toggle"><i class="fas fa-sun"></i></button>
 
 <h1>✍️ إضافة / تعديل منشور</h1>
+
 <input id="title" placeholder="عنوان المنشور">
 <br>
+
 <textarea id="content" placeholder="اكتب المحتوى هنا..."></textarea>
+
 <br>
+
+<!-- 🔥 زرار إضافة كود -->
+<button type="button" onclick="addCode()">📦 إضافة كود</button>
+
+<br>
+
 <input id="videoUrl" placeholder="رابط الفيديو (اختياري)">
 <br>
+
 <button onclick="savePost()">نشر</button>
+
 <a href="manage.html">← الرجوع لإدارة المنشورات</a>
 
 <div class="footer">
   <h3>تابعني على مواقع التواصل</h3>
   <div class="social-links">
-    <a href="https://wa.me/201094517814" target="_blank" title="واتساب"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://t.me/pablo_0boy" target="_blank" title="تيليجرام"><i class="fab fa-telegram"></i></a>
-    <a href="https://www.facebook.com/share/1DLp9ydAKB/" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-    <a href="https://youtube.com/@mohamedshaban-y4c?si=P7vz5qJi5aQJMn5B" target="_blank" title="قناة يوتيوب"><i class="fab fa-youtube"></i></a>
-    <a href="https://www.linkedin.com/in/m-shaban-67a05035a" target="_blank" title="لينكدإن"><i class="fab fa-linkedin"></i></a>
+    <a href="https://wa.me/201094517814" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://t.me/pablo_0boy" target="_blank"><i class="fab fa-telegram"></i></a>
+    <a href="https://www.facebook.com/share/1DLp9ydAKB/" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://youtube.com/@mohamedshaban-y4c" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.linkedin.com/in/m-shaban-67a05035a" target="_blank"><i class="fab fa-linkedin"></i></a>
   </div>
-  <p style="color:#888; font-size:13px; margin-top:15px;">© 2025 جميع الحقوق محفوظة - محمد شعبان</p>
+  <p style="color:#888; font-size:13px;">© 2025 جميع الحقوق محفوظة - محمد شعبان</p>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-// إعدادات Firebase
+// Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBVgZsBL9fjSVqiZFad6VoRGMydYikDciI",
   authDomain: "mohamed-shaban-ab814.firebaseapp.com",
   projectId: "mohamed-shaban-ab814",
-  storageBucket: "mohamed-shaban-ab814.firebasestorage.app",
-  messagingSenderId: "651988656935",
-  appId: "1:651988656935:web:849262e31bf90a72bf3f02",
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// التحقق من id في الرابط لمعرفة إذا تعديل
+// 🔥 إضافة كود تلقائي
+function addCode() {
+  const textarea = document.getElementById("content");
+  const template = "\n```code\nاكتب الكود هنا\n```\n";
+
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  textarea.value =
+    textarea.value.substring(0, start) +
+    template +
+    textarea.value.substring(end);
+
+  textarea.focus();
+}
+
+// تعديل أو إضافة
 const params = new URLSearchParams(window.location.search);
 const postId = params.get("id");
 
@@ -96,50 +176,50 @@ if(postId){
   db.collection("posts").doc(postId).get().then(doc=>{
     if(doc.exists){
       const post = doc.data();
-      document.getElementById("title").value = post.title;
-      document.getElementById("content").value = post.content;
-      document.getElementById("videoUrl").value = post.videoUrl || "";
-      document.querySelector("button").textContent = "تحديث المنشور";
+      title.value = post.title;
+      content.value = post.content;
+      videoUrl.value = post.videoUrl || "";
     }
   });
 }
 
 function savePost(){
-  const title = document.getElementById("title").value.trim();
-  const content = document.getElementById("content").value.trim();
-  const videoUrl = document.getElementById("videoUrl").value.trim();
+  const title = title.value.trim();
+  const content = content.value.trim();
+  const videoUrl = videoUrl.value.trim();
 
   if(!title || !content){
-    alert("❗ اكتب العنوان والمحتوى أولاً");
+    alert("❗ اكتب العنوان والمحتوى");
     return;
   }
 
   if(postId){
-    // تحديث المنشور
     db.collection("posts").doc(postId).update({ title, content, videoUrl })
-      .then(()=> { alert("✅ تم تحديث المنشور"); window.location="manage.html"; })
-      .catch(err=> alert("❌ خطأ: "+err));
+      .then(()=> alert("✅ تم التحديث"));
   } else {
-    // إضافة منشور جديد
-    db.collection("posts").add({ title, content, videoUrl, date:new Date().toLocaleString() })
-      .then(()=> { alert("✅ تم نشر المنشور بنجاح"); window.location="index.html"; })
-      .catch(err=> alert("❌ حدث خطأ: "+err));
+    db.collection("posts").add({
+      title,
+      content,
+      videoUrl,
+      date: new Date().toLocaleString()
+    }).then(()=> alert("✅ تم النشر"));
   }
 }
 
-// تبديل الوضع
+// Dark Mode
 const toggleBtn = document.getElementById("mode-toggle");
-const currentMode = localStorage.getItem("mode") || "dark";
-if(currentMode === "light"){
+const mode = localStorage.getItem("mode") || "dark";
+
+if(mode === "light"){
   document.body.classList.add("light");
-  toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
 }
-toggleBtn.addEventListener("click", () => {
+
+toggleBtn.onclick = () => {
   document.body.classList.toggle("light");
-  const isLight = document.body.classList.contains("light");
-  toggleBtn.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-  localStorage.setItem("mode", isLight ? "light" : "dark");
-});
+  localStorage.setItem("mode",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
+};
 </script>
 
 </body>
